@@ -6,12 +6,11 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:00:59 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/02/24 15:01:01 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/02/25 16:42:06 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 int	count_c(char const *s, char c)
 {
@@ -20,9 +19,13 @@ int	count_c(char const *s, char c)
 
 	i = 0;
 	count = 0;
+	if (c == '\0')
+		return (0);
+	while (s[i] == c)
+		i++;
 	while (s[i])
 	{
-		if (s[i] == c && i != 0)
+		if (s[i] == c && s[i + 1] != c)
 			count++;
 		i++;
 	}
@@ -99,23 +102,3 @@ char	**ft_split(char const *s, char c)
 	arr[i] = 0;
 	return (arr);
 }
-/*
-int	main()
-{
-	char	s[] = "banana amarelo camelo";
-	char	c;
-	char	**str;
-	int		i;
-	int		count;
-
-	c = ' ';
-	count = count_c(s, c);
-	str = ft_split(s, c);
-	i = 0;
-	while (i < count)
-	{
-		printf("%s\n", str[i]);
-		i++;
-	}
-	return (0);
-}*/

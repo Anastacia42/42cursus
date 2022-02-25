@@ -6,7 +6,7 @@
 #    By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 08:54:50 by ansilva-          #+#    #+#              #
-#    Updated: 2022/02/24 16:32:51 by ansilva-         ###   ########.fr        #
+#    Updated: 2022/02/25 15:22:50 by ansilva-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,21 +21,22 @@ SRC = ft_isalpha ft_isdigit ft_isalnum ft_isascii\
 	  ft_strmapi ft_striteri ft_putchar_fd\
 	  ft_putstr_fd ft_putendl_fd ft_putnbr_fd\
 
-BONUS = ft_lstnew ft_lstadd_front ft_lstsize\
-		ft_lstlast ft_lstadd_back ft_lstdelone\
-		ft_lstclear ft_lstiter ft_lstmap\
+BONUS = ft_lstnew
+		# ft_lstadd_front ft_lstsize\
+		# ft_lstlast ft_lstadd_back ft_lstdelone\
+		# ft_lstclear ft_lstiter ft_lstmap\
 
 CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -I libft.h
 AR = ar rc
 
-all: $(NAME) 
+all: $(NAME) $(BONUS)
 
 $(NAME): $(SRC:=.o)
 	$(AR) $(NAME) $(SRC:=.o)
 
-bonus: all $(BONUS:=.o)
+$(BONUS): $(BONUS:=.o)
 	$(AR) $(NAME) $(BONUS:=.o)
 
 %.o: %.c libft.h
@@ -50,4 +51,4 @@ fclean: clean
 re: fclean all
 
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
