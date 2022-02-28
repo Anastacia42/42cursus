@@ -6,13 +6,13 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:00:59 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/02/25 16:42:06 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/02/28 13:26:55 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	count_c(char const *s, char c)
+static int	count_c(char const *s, char c)
 {
 	int	count;
 	int	i;
@@ -34,7 +34,7 @@ int	count_c(char const *s, char c)
 	return (count);
 }
 
-char	*put_str(char const *s, int *pos, char c)
+static char	*put_str(char const *s, int *pos, char c)
 {
 	int		i;
 	int		len;
@@ -63,7 +63,7 @@ char	*put_str(char const *s, int *pos, char c)
 	return (str);
 }
 
-char	**str_free(char **arr)
+static char	**str_free(char **arr)
 {
 	int	i;
 
