@@ -6,13 +6,13 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:01:19 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/02/25 16:35:50 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/02/28 13:29:06 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	get_len_n(int n)
+static int	get_len_n(int n)
 {
 	int	len_n;
 
@@ -27,7 +27,7 @@ int	get_len_n(int n)
 	return (len_n);
 }
 
-void	get_str(long int n, char *str, int len)
+static void	get_str(long int n, char *str, int len)
 {
 	int	i;
 

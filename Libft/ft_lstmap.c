@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/17 11:58:46 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/02/28 11:17:06 by ansilva-         ###   ########.fr       */
+/*   Created: 2022/02/28 09:54:50 by ansilva-          #+#    #+#             */
+/*   Updated: 2022/02/28 11:15:03 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	size_t			i;
-	unsigned char	*str;
+	t_list	*new;
+	t_list	*head;
 
-	str = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	head = NULL;
+	while (lst)
 	{
-		if (str[i] == (unsigned char)c)
-			return (str + i);
-		i++;
+		new = ft_lstnew(f(lst->content));
+		if (!new)
+		{
+			ft_lstclear(&new, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&head, new);
+		lst = lst->next;
 	}
-	return (NULL);
+	return (head);
 }
