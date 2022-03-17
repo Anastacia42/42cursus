@@ -6,7 +6,7 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 10:20:34 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/03/14 15:00:41 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/03/17 13:18:33 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,69 @@
 #include <unistd.h>
 #include <fcntl.h> 
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_get_line(char *content)
 {
-	int		i;
-	char	b;
+	char	*line;
+	int		lenght;
+	int		index;
 
-	b = c;
-	i = 0;
-	while (s && s[i] && (s[i] != b))
-		i++;
-	if (s[i] == b)
-		return ((char *)s + i);
-	else
+	lenght = 0;
+	while (content[lenght] != '\n' && content[lenght] != '\0')
+		lenght++;
+	line = malloc(sizeof(char *) * lenght + 2);
+	if (line == NULL)
 		return (NULL);
+	index = 0;
+	while (index < lenght && content[index] != '\0')
+	{
+		line[index] = content[index];
+		index++;
+	}
+	line[index++] = '\n';
+	line[index] = '\0';
+	content += lenght;
+	return (line);
+}
+
+char	*seek_new_line(char *buff, int fd, ssize_t read_bytes)
+{
+	char	*save_content;
+
+	save_content = "";
+	save_content = ft_strjoin(save_content, buff);
+	while (!ft_strchr(save_content, '\n'))
+	{
+		read_bytes = read(fd, buff, BUFFER_SIZE);
+		buff[read_bytes] = '\0';
+		save_content = ft_strjoin(save_content, buff);
+	}
+	return (save_content);
 }
 
 char	*get_next_line(int fd)
 {
-	static ssize_t	read_bytes;
-	static char		*line;
+	ssize_t		read_bytes;
+	static char	buff[BUFFER_SIZE + 1];
+	char		*new_line;
+	static char	*content;
 
 	if (fd < 0 || BUFFER_SIZE == 0)
 		return (NULL);
-	line = malloc(sizeof(char *) * BUFFER_SIZE + 1);
-	if (line == NULL)
-		return (NULL);
-	read_bytes = 1;
-	while (!ft_strchr(line, '\n') && read_bytes != 0)
-	{
-		read_bytes = read(fd, line, BUFFER_SIZE);
-	}
-	line[read_bytes] = '\0';
-	return (line);
+	read_bytes = read(fd, buff, BUFFER_SIZE);
+	buff[read_bytes] = '\0';
+	content = seek_new_line(buff, fd, read_bytes);
+	new_line = ft_get_line(content);
+	free (content);
+	return (new_line);
 }
 
-int	main()
+int	main(void)
 {
-	int		fd;
-	char	*line1;
-	char	*line2;
-	char	*line3;
+	int	fd;
 
 	fd = open("teste.txt", O_RDONLY);
-	line1 = get_next_line(fd);
-	line2 = get_next_line(fd);
-	line3 = get_next_line(fd);
-	printf("linha 1: %s\nlinha 2: %s\nlinha 3: %s\n", line1, line2, line3);
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
 	close(fd);
 	return (0);
 }
