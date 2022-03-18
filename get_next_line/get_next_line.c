@@ -6,7 +6,7 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 10:20:34 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/03/18 11:27:24 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/03/18 12:10:36 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,11 @@ char	*get_next_line(int fd)
 	if (read_bytes != 0)
 	{
 		content = seek_new_line(content, buff, fd, read_bytes);
+		new_line = ft_get_line(content);
+		content = update_content(content);
+	}
+	else if (read_bytes == 0 && ft_strchr(content, '\n'))
+	{
 		new_line = ft_get_line(content);
 		content = update_content(content);
 	}
