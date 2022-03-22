@@ -6,7 +6,7 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 10:20:34 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/03/18 12:10:36 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/03/22 11:42:11 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,10 @@ char	*update_content(char *content)
 	int		index;
 	int		position;
 
-	lenght = 0;
 	position = 0;
-	while (content[lenght] != '\0')
-	{
-		if (content[lenght] == '\n' && position == 0)
-			position = lenght;
-		lenght++;
-	}
+	while (content[position] != '\n')
+		position++;
+	lenght = ft_strlen(content);
 	updated = malloc(sizeof(char *) * (lenght - position) + 1);
 	if (updated == NULL)
 		return (NULL);
@@ -41,6 +37,7 @@ char	*update_content(char *content)
 		index++;
 	}
 	updated[index] = '\0';
+	free (content);
 	return (updated);
 }
 
@@ -109,19 +106,22 @@ char	*get_next_line(int fd)
 	return (new_line);
 }
 
-int	main(void)
-{
-	int	fd;
+// int	main(void)
+// {
+// 	int	fd;
 
-	fd = open("teste.txt", O_RDONLY);
-	printf("first call: %s\n", get_next_line(fd));
-	printf("second call: %s\n", get_next_line(fd));
-	printf("third call: %s\n", get_next_line(fd));
-	printf("forth call: %s\n", get_next_line(fd));
-	printf("fifth call: %s\n", get_next_line(fd));
-	printf("sixth call: %s\n", get_next_line(fd));
-	printf("seventh call: %s\n", get_next_line(fd));
-	printf("eighth call: %s\n", get_next_line(fd));
-	close(fd);
-	return (0);
-}
+// 	fd = open("texto2.txt", O_RDONLY);
+// 	printf("call 1: %s\n", get_next_line(fd));
+// 	printf("call 2: %s\n", get_next_line(fd));
+// 	printf("call 3: %s\n", get_next_line(fd));
+// 	printf("call 4: %s\n", get_next_line(fd));
+// 	printf("call 5: %s\n", get_next_line(fd));
+// 	printf("call 6: %s\n", get_next_line(fd));
+// 	printf("call 7: %s\n", get_next_line(fd));
+// 	printf("call 8: %s\n", get_next_line(fd));
+// 	printf("call 9: %s\n", get_next_line(fd));
+// 	printf("call 10: %s\n", get_next_line(fd));
+// 	printf("call 11: %s\n", get_next_line(fd));
+// 	close(fd);
+// 	return (0);
+// }
