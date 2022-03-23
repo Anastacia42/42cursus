@@ -6,7 +6,7 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 10:20:49 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/03/17 10:49:38 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/03/23 12:39:35 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	str = malloc(sizeof(*str) * (len_s1 + len_s2 + 1));
+	str = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
 	if (str == NULL)
 		return (NULL);
 	ft_strlcpy(str, s1, len_s1 + 1);
