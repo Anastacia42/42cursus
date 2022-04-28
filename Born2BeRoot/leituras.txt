@@ -1,0 +1,14 @@
+https://www.virtualbox.org/manual/ch01.html
+
+https://baigal.medium.com/born2beroot-e6e26dfb50ac
+
+https://github.com/HEADLIGHTER/Born2BeRoot-42/blob/main/walkthrough37.txt
+
+https://github.com/Diogo13Antunes/42Cursus_Born2BeRoot/blob/main/monitoring.sh
+
+https://github.com/achrafelkhnissi/1337/blob/master/42curses/Born2beRoot/monitoring.sh
+
+
+About processors
+
+https://www.networkworld.com/article/2715970/counting-processors-on-your-linux-box.html

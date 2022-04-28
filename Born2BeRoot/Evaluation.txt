@@ -1,0 +1,160 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red251\green2\blue7;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c14913\c0;}
+\margl1440\margr1440\vieww14900\viewh13100\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Evaluation Born2BeRoot\
+\
+First of all: signature!\
+The evaluator will have access to the file signature.txt on the repository. You will have to access this information on your physical machine and then the evaluator will check if they are the same. \
+\
+Command: shasum born2beroot.vdi\
+\
+Mandatory part:\
+\
+1) Project overview\
+\
+What is a virtual machine?\
+Virtual machines are computers created by software. They run in a physical machine (host) but in a virtual mode. They have their own CPU, memory, disks and support any operating system, independently of the host operating system. \
+\
+How does it works?\
+They are created on a software with virtualization. It is created a partition inside the host to run the virtual machine. So it uses part of CPU, memory and disk of the host, but the environments are independent. \
+\
+What is for?\
+Using different operating systems on the same computer when you have softwares that are supported by different operating systems. Create a new environment to test applications in a safe mode. \
+\
+Explain the choice of operating system and the basic differences between Debian and CentOS.\
+Debian is easier to configure, its graphical interface user (GUI) is more user friendly and it has more packages in its default repository.\
+\
+\
+Explain the difference between aptitude and apt and what APPArmor is.\
+Aptitude and apt are both package managers, being Aptitude of high level and apt of low level. \
+\
+Apt is a free and open source software that handles software installation and removal. It was initially designed for Debian. It is whole command line, with no GUI. Once it is invoked to some package, it install it and all of its dependencies. \
+\
+Aptitude is an advanced packaging tool which adds an interface user. It was initially created for Debian, as well. It s vaster in functionalities than apt-get and integrates apt-get\'92s functionalities. It is high level, so it abstracts low level details, and can operate in both GUI mode and even in command line.\
+\
+Read more: https://www.tecmint.com/difference-between-apt-and-aptitude/\
+\
+AppArmor is a Linux Kernel security module that allows the system administrator to isolate applications from each other when one of then is compromised. The usability of AppArmor is much easier than SELinux.\
+\
+\
+2) Simple setup\
+\
+Check Password rules:\
+ - expire every 30 days\
+ - minimus number of days before modification of a password is 2\
+ - warning message 7 days before expiring\
+ - At least 10 characters\
+ - an uppercase letter\
+ - a number\
+ - not more than 3 consecutive identical characters\
+ - not include the name of the user\
+ - at least 7 characters that are not part of the former password (when you change it)\
+\
+\
+(Grewcg0810)\
+\
+\
+Check UFW service\
+\
+UFW - Uncomplicated Firewall\
+Is a program for managing a net filter firewall designed to be easy to use. It uses command line interface consisting of a small number of simple commands. It is available by default in all Ubuntu installations. \
+\
+Command: sudo UFW status\
+\
+\
+Check SSH service\
+\
+What is SSH?\
+Secure Shell. Is a network protocol that gives users, particularly system administrators, a secure way to access a computer over an unsecured network. It provides strong password authentication and public key authentication, as well as encrypted data communication between two computers connecting over an open network, such as the internet. \
+\
+Read more: https://www.techtarget.com/searchsecurity/definition/Secure-Shell\
+\
+Command: sudo service ssh status\
+\
+Check chosen operating system\
+\
+Command: uname -a\
+\
+\
+\
+3) User\
+\
+Check user with login name and if it is on \'93sudo\'94 and \'93user42\'94 groups\
+\
+Command: getent group sudo\
+	        getent group user42\
+\
+Checking the policy password:\
+ - Create a new user\
+Command: sudo adduser username \
+\
+To check expiring information: sudo change -l username\
+\
+Creating \'93evaluating\'94 group:\
+\
+Command: sudo addgroup evaluating\
+\
+Adding the new user to this group: sudo adduser username evaluating\
+\
+\
+Explanation about how to set up the policy rules:\
+\
+Command: \
+\
+\cf2 To verify definitions:   sudo nano /etc/login.defs \
+			  sudo /etc/pam.d/common-password \cf0 \
+\
+\
+\
+Create a group named \'93evaluating\'94 and assign it to this user. Check that this user belongs to this group.\
+Explanation about the advantages and disadvantages of its implementation (password policy).\
+\
+4) hostname and partitions\
+\
+Check if the hostname is formatted as follows: login42\
+Modify this hostname by replacing the login with yours, then restart the machine. On restarting the hostname must be updated.\
+Restore to the original hostname\
+Show how to view the partitions of this virtual machine.\
+Compare the output with the example on the subject\
+Explanation of how LVM works and what is all about.\
+\
+5) Sudo\
+\
+Check if sudo program is properly installed on virtual machine\
+Show how to assign new user to sudo\
+Explanation about value and operation of sudo\
+Show the implementation of the rules imposed by subject\
+Verify if /var/log/sudo/ exist and has at least one file\
+Check the log\
+Try to run a command with sudo and check if ht folder was updated\
+\
+6) UFW\
+\
+Check if UFW program is properly installed\
+Check if it is working\
+Explanation about UFW\
+Check the rules and if there is a rule for port 4242\
+Add a new rule for port 8080\
+Delete this new rule\
+\
+7) SSH\
+\
+Check if SSH service is properly installed\
+Check if it is working\
+Explanation about SSH\
+Verify if SSH service only uses port4242\
+\
+\
+8) Script monitoring\
+\
+Explanation on the code\
+What os cron\
+How set up the script to run every 10 min\
+Change to run every minute\
+Stop the running without changing the script when it is restarted\
+\
+}
