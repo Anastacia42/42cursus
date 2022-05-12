@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_put_pointer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 13:46:33 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/05/12 17:16:52 by ansilva-         ###   ########.fr       */
+/*   Created: 2022/03/07 10:53:35 by ansilva-          #+#    #+#             */
+/*   Updated: 2022/03/07 16:49:05 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "ft_printf.h"
 
-void	signal_handler(int signo)
+int	ft_put_pointer(void *p)
 {
-	if (signo == SIGUSR1)
-		ft_printf("Message received successfully!");
-}
+	unsigned long	address;
+	int				i;
+	char			*s;
+	char			*base;
 
-int	main(int argc, char **argv)
-{
-	int	pid;
-
-	if (argc == 3)
+	i = 0;
+	if (p == NULL)
+		i += ft_putstr("0x0");
+	else
 	{
-		pid = ft_atoi(*argv[1]);
-		signal(SIGUSR1, signal_handler);
-		kill(pid, argv[2]);
-		ft_printf("Estou aqui");
+		address = (unsigned long)p;
+		base = "0123456789abcdef";
+		s = ft_put_base_pointer(address, base);
+		i += ft_putstr("0x");
+		i += ft_putstr(s);
+		free (s);
 	}
-	return (0);
+	return (i);
 }

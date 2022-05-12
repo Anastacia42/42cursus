@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_put_base_hex.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 13:46:33 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/05/12 17:16:52 by ansilva-         ###   ########.fr       */
+/*   Created: 2022/03/07 10:58:15 by ansilva-          #+#    #+#             */
+/*   Updated: 2022/03/10 10:17:09 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "ft_printf.h"
 
-void	signal_handler(int signo)
+char	*ft_put_base_hex(unsigned int nb, char *base)
 {
-	if (signo == SIGUSR1)
-		ft_printf("Message received successfully!");
-}
+	int				len;
+	size_t			len_base;
+	unsigned int	n;
+	char			*s;
 
-int	main(int argc, char **argv)
-{
-	int	pid;
-
-	if (argc == 3)
+	n = nb;
+	len = 0;
+	len_base = ft_strlen(base);
+	while (n > 0)
 	{
-		pid = ft_atoi(*argv[1]);
-		signal(SIGUSR1, signal_handler);
-		kill(pid, argv[2]);
-		ft_printf("Estou aqui");
+		n /= len_base;
+		len++;
 	}
-	return (0);
+	s = malloc(sizeof(*s) * (len + 1));
+	if (s == NULL)
+		return (NULL);
+	s[len] = '\0';
+	while (nb > 0)
+	{
+		s[--len] = base[nb % len_base];
+		nb /= len_base;
+	}
+	return (s);
 }

@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_put_hex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 13:46:33 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/05/12 17:16:52 by ansilva-         ###   ########.fr       */
+/*   Created: 2022/03/07 14:37:20 by ansilva-          #+#    #+#             */
+/*   Updated: 2022/03/08 14:26:29 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "ft_printf.h"
 
-void	signal_handler(int signo)
+int	ft_put_hex(unsigned int n, char format)
 {
-	if (signo == SIGUSR1)
-		ft_printf("Message received successfully!");
-}
+	int				i;
+	char			*base;
+	char			*s;
 
-int	main(int argc, char **argv)
-{
-	int	pid;
-
-	if (argc == 3)
-	{
-		pid = ft_atoi(*argv[1]);
-		signal(SIGUSR1, signal_handler);
-		kill(pid, argv[2]);
-		ft_printf("Estou aqui");
-	}
-	return (0);
+	i = 0;
+	if (n == 0)
+		return (i += ft_putchar('0'));
+	if (format == 'x')
+		base = "0123456789abcdef";
+	else
+		base = "0123456789ABCDEF";
+	s = ft_put_base_hex(n, base);
+	i += ft_putstr(s);
+	free (s);
+	return (i);
 }

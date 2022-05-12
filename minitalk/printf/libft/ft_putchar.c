@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 13:46:33 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/05/12 17:16:52 by ansilva-         ###   ########.fr       */
+/*   Created: 2022/02/17 11:40:46 by ansilva-          #+#    #+#             */
+/*   Updated: 2022/03/04 11:14:41 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-void	signal_handler(int signo)
+int	ft_putchar(char c)
 {
-	if (signo == SIGUSR1)
-		ft_printf("Message received successfully!");
-}
-
-int	main(int argc, char **argv)
-{
-	int	pid;
-
-	if (argc == 3)
-	{
-		pid = ft_atoi(*argv[1]);
-		signal(SIGUSR1, signal_handler);
-		kill(pid, argv[2]);
-		ft_printf("Estou aqui");
-	}
-	return (0);
+	write(1, &c, 1);
+	return (1);
 }

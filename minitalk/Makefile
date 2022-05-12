@@ -6,41 +6,59 @@
 #    By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/11 16:26:13 by ansilva-          #+#    #+#              #
-#    Updated: 2022/05/11 16:54:08 by ansilva-         ###   ########.fr        #
+#    Updated: 2022/05/12 17:15:49 by ansilva-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 
-CLIENT = client
+NAME = minitalk.a
 SERVER = server
-LIBFT = ./libft/libft.a
+CLIENT = client
+SRC = 	printf/ft_printf.c\
+		printf/ft_put_base_hex.c\
+		printf/ft_put_base_pointer.c\
+		printf/ft_put_base.c\
+		printf/ft_put_di.c\
+		printf/ft_put_hex.c\
+		printf/ft_put_pointer.c\
+		printf/ft_put_u.c\
+		printf/libft/ft_itoa.c\
+		printf/libft/ft_putchar.c\
+		printf/libft/ft_putstr.c\
+		printf/libft/ft_strlen.c\
+		libft/ft_atoi.c\
+		libft/ft_isdigit.c
+		
+PRINTF = printf/libftprintf.a
+PRINTF_PATH = ./printf
 
-SRC_C = client.c
-SRC_S = server.c
+LIBFT = libft/libft.a
+LIBFT_PATH = ./libft
 
 CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -I.
-AR = ar rc
 
-all: $(CLIENT) $(SERVER)
+all: $(NAME)
 
-$(NAME): all
+$(NAME): $(SERVER) $(CLIENT) 
 
-$(SERVER): $(SRC_S:=.o)
-	$(AR) $(SERVER) $(SRC_S:=.o)
+$(SERVER): $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $(SRC) $(SERVER).c -o $(SERVER)
 
-$(CLIENT): $(SRC_C:=.o)
-	$(AR) $(CLIENT) $(SRC_C:=.o)
+$(CLIENT): 
+	$(CC) $(CFLAGS) $(SRC) $(CLIENT).c -o $(CLIENT)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(LIBFT):
+	make -C $(LIBFT_PATH)
+
+$(PRINTF):
+	make -C $(PRINTF_PATH)
 
 clean:
-	$(RM) $(SRC_C:=.o) $(SRC_S:=.o)
+	$(RM) $(CLIENT) $(SERVER)
 
 fclean: clean
-	$(RM) $(CLIENT) $(SERVER)
+	$(RM) $(CLIENT) $(SERVER) $(NAME)
 
 re: fclean all
 

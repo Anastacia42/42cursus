@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 13:46:33 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/05/12 17:16:52 by ansilva-         ###   ########.fr       */
+/*   Created: 2022/02/15 15:06:58 by ansilva-          #+#    #+#             */
+/*   Updated: 2022/03/04 15:17:26 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef LIBFT_H
+# define LIBFT_H
 
-void	signal_handler(int signo)
-{
-	if (signo == SIGUSR1)
-		ft_printf("Message received successfully!");
-}
+# include <unistd.h>
+# include <stdlib.h>
 
-int	main(int argc, char **argv)
-{
-	int	pid;
+int		ft_putchar(char c);
+int		ft_putstr(char *s);
+char	*ft_itoa(int n);
+size_t	ft_strlen(char *s);
 
-	if (argc == 3)
-	{
-		pid = ft_atoi(*argv[1]);
-		signal(SIGUSR1, signal_handler);
-		kill(pid, argv[2]);
-		ft_printf("Estou aqui");
-	}
-	return (0);
-}
+#endif
