@@ -6,7 +6,7 @@
 #    By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/11 16:26:13 by ansilva-          #+#    #+#              #
-#    Updated: 2022/05/12 17:15:49 by ansilva-         ###   ########.fr        #
+#    Updated: 2022/05/24 15:29:19 by ansilva-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC = 	printf/ft_printf.c\
 		printf/libft/ft_putstr.c\
 		printf/libft/ft_strlen.c\
 		libft/ft_atoi.c\
-		libft/ft_isdigit.c
+		libft/ft_isdigit.c\
+		libft/ft_memset.c
 		
 PRINTF = printf/libftprintf.a
 PRINTF_PATH = ./printf

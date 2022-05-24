@@ -6,29 +6,62 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:46:33 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/05/19 16:29:13 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:40:47 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+// SIGUSR1 == 1
+// SIGUSR2 == 0
+
+void	send_message(char *server_pid, char *message)
+{
+	pid_t	pid;
+	int		index;
+	int		bit;
+
+	pid = ft_atoi(server_pid);
+	index = 0;
+	while (message[index])
+	{
+		bit = 128;
+		while (bit > 0)
+		{
+			if (((unsigned char)message[index] & bit) == 1)
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
+			bit /= 2;
+		}
+		index++;
+	}
+}
+
+void	handler(int signo)
+{
+	if (signo != SIGUSR1)
+		return ;
+	ft_printf("Message succesfully received!");
+}
+
 int	main(int argc, char **argv)
 {
-	int		pid;
-	int		message_int;
-	char	*message_char;
-	char	*base;
+	struct sigaction	action_client;
 
-	if (argc < 3)
+	if (argc != 3)
+	{
+		ft_printf("Invalid arguments!\n ");
+		ft_printf("Expected: ./client [server PID] [message]\n");
 		return (0);
-	pid = ft_atoi(argv[1]);
-	ft_printf("server_pid: %d\n", pid);
-	message_int = ft_atoi(argv[2]);
-	ft_printf("message_int: %d\n", message_int);
-	base = "01";
-	message_char = ft_put_base(message_int, base);
-	ft_printf("message_char: %s\n", message_char);
-	message_int = ft_atoi(message_char);
-	kill(pid, message_int);
+	}
+	sigemptyset(&action_client.sa_mask);
+	action_client.__sigaction_u.__sa_handler = &handler;
+	if (sigaction(SIGUSR1, &action_client, NULL) == -1)
+	{
+		ft_printf("sigaction failed!\n");
+		return (0);
+	}
+	send_message(argv[1], argv[2]);
 	return (0);
 }
