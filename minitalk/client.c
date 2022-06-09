@@ -6,16 +6,13 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:46:33 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/06/09 12:34:09 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:26:45 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-// SIGUSR1 == 1
-// SIGUSR2 == 0
-
-void	send_message(int pid, char *message)
+void	send_message(int pid, unsigned char *message)
 {
 	int		index;
 	int		bit;
@@ -31,9 +28,10 @@ void	send_message(int pid, char *message)
 			else
 				kill(pid, SIGUSR2);
 			bit /= 2;
-			usleep(100);
+			usleep(120);
 		}
 		index++;
+		usleep(200);
 	}
 }
 
@@ -64,7 +62,6 @@ int	main(int argc, char **argv)
 		ft_printf("sigaction failed!\n");
 		return (0);
 	}
-	send_message(ft_atoi(argv[1]), argv[2]);
+	send_message(ft_atoi(argv[1]), (unsigned char *)argv[2]);
 	return (0);
 }
-
