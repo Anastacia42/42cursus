@@ -6,18 +6,17 @@
 /*   By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:46:20 by ansilva-          #+#    #+#             */
-/*   Updated: 2022/06/08 14:49:55 by ansilva-         ###   ########.fr       */
+/*   Updated: 2022/06/09 12:31:30 by ansilva-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	conversion_to_decimal(char *binary_message)
+void	conversion_to_decimal(char *binary_message, int pid)
 {
 	int		bit;
 	int		index;
 	int		message_decimal;
-	char	character;
 
 	message_decimal = 0;
 	index = 0;
@@ -29,8 +28,8 @@ void	conversion_to_decimal(char *binary_message)
 		index++;
 		bit /= 2;
 	}
-	character = message_decimal;
-	ft_printf("%c", character);
+	ft_printf("%c", message_decimal);
+	kill(pid, SIGUSR1);
 }
 
 void	receive_message(int signo, siginfo_t *info, void *nothing)
@@ -48,7 +47,7 @@ void	receive_message(int signo, siginfo_t *info, void *nothing)
 	index++;
 	if (index == 8)
 	{
-		conversion_to_decimal(byte_of_message);
+		conversion_to_decimal(byte_of_message, pid);
 		index = 0;
 	}
 }
