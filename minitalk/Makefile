@@ -6,59 +6,52 @@
 #    By: ansilva- <ansilva-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/11 16:26:13 by ansilva-          #+#    #+#              #
-#    Updated: 2022/06/15 11:21:35 by ansilva-         ###   ########.fr        #
+#    Updated: 2022/06/20 11:19:28 by ansilva-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minitalk.a
+NAME = 
 SERVER = server
 CLIENT = client
-SRC = 	printf/ft_printf.c\
-		printf/ft_put_base_hex.c\
-		printf/ft_put_base_pointer.c\
-		printf/ft_put_base.c\
-		printf/ft_put_di.c\
-		printf/ft_put_hex.c\
-		printf/ft_put_pointer.c\
-		printf/ft_put_u.c\
-		printf/libft/ft_itoa.c\
-		printf/libft/ft_putchar.c\
-		printf/libft/ft_putstr.c\
-		printf/libft/ft_strlen.c\
-		libft/ft_atoi.c\
-		libft/ft_isdigit.c
-		
+
 PRINTF = printf/libftprintf.a
 PRINTF_PATH = ./printf
+LIBFT = Libft/libft.a
+LIBFT_PATH = ./Libft
 
-LIBFT = libft/libft.a
-LIBFT_PATH = ./libft
+INC = minitalk.h
 
 CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -I.
 
-all: $(NAME)
 
-$(NAME): $(SERVER) $(CLIENT) 
+all: $(LIBFT) $(PRINTF) $(SERVER) $(CLIENT) 
 
-$(SERVER): $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) $(SRC) $(SERVER).c -o $(SERVER)
+$(SERVER): $(SERVER:=.o) $(INC) 
+	$(CC) $(CFLAGS) $(LIBFT) $(PRINTF) -o $(SERVER) $(SERVER:=.o)
 
-$(CLIENT): 
-	$(CC) $(CFLAGS) $(SRC) $(CLIENT).c -o $(CLIENT)
-
-$(LIBFT):
-	make -C $(LIBFT_PATH)
+$(CLIENT): $(CLIENT:=.o) $(INC)
+	$(CC) $(CFLAGS) $(LIBFT) $(PRINTF) -o $(CLIENT) $(CLIENT:=.o)
 
 $(PRINTF):
 	make -C $(PRINTF_PATH)
 
+$(LIBFT):
+	make -C $(LIBFT_PATH)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	$(RM) $(CLIENT) $(SERVER)
+	$(RM) $(SERVER:=.o) $(CLIENT:=.o)
+	make clean -C $(PRINTF_PATH)
+	make clean -C $(LIBFT_PATH)
 
 fclean: clean
-	$(RM) $(CLIENT) $(SERVER) $(NAME)
+	$(RM) $(SERVER) $(CLIENT)
+	make fclean -C $(PRINTF_PATH)
+	make fclean -C $(LIBFT_PATH)
 
 re: fclean all
 
